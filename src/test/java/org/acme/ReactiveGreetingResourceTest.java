@@ -18,4 +18,13 @@ public class ReactiveGreetingResourceTest {
              .body(is("Hello RESTEasy Reactive"));
     }
 
+    @Test
+    public void testMultiEndpoint() {
+        given()
+                .when().get("/hello/multi")
+                .then()
+                .statusCode(200)
+                .body(is("[\"Hello\",\"Hola\"]"));
+    }
+
 }
