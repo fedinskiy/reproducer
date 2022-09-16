@@ -10,6 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.util.Objects.requireNonNull;
 
@@ -27,6 +29,12 @@ public class Application {
     }
 
     private TemplateInstance addData(Template template) {
-        return template.data("server", "Quarkus");
+        Map<String, String> map = new HashMap<>();
+        map.put("Tasmania", "Hobart");
+        map.put("The Great Britain", "London");
+        map.put("Germany", "Berlin");
+        return template
+                       .data("map", map)
+                       .data("total", 3);
     }
 }

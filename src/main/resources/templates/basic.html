@@ -1,12 +1,4 @@
 <!DOCTYPE html>
 <html>
-{#for i in 10}
-{#if i_isFirst}Here are some indexed numbers: {/if}
-{i_index} (parity: {i_indexParity}){#if !i_isLast},{#else}.{/if}
-{/for}
-<br>
-{#for i in 10}
-{#if i_isFirst}Here are some counted numbers: {/if}
-{i_count} (parity: {i_indexParity}){#if !i_isLast},{#else}.{/if}
-{/for}
+The capital of Tasmania is {map.Tasmania}, {map.['Germany']} is a capital of Germany and {map.['The Great Britain']} is a capital of the UK.
 </html>
