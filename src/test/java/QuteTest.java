@@ -14,19 +14,15 @@ public class QuteTest {
     void smoke() {
         Response response = given().get("/base");
         assertEquals(200, response.statusCode());
-        assertTrue(response.body().asString().contains("<p>This page is rendered by Quarkus</p>"),
-                response.body().asString());
         System.out.println(response.headers().asList());
         assertEquals(MediaType.TEXT_HTML, response.contentType());
-    }
-
-    @Test
-    void location() {
-        Response response = given().get("/located");
-        assertEquals(200, response.statusCode());
-        assertTrue(response.body().asString().contains("<p>This page is rendered by Quarkus</p>"),
-                response.body().asString());
-        System.out.println(response.headers().asList());
-        assertEquals(MediaType.TEXT_HTML, response.contentType());
+        String result = response.body().asString();
+        for (char c : result.toCharArray()) {
+            if (Character.isWhitespace(c)) {
+                System.out.println((int) c);
+            }
+        }
+        assertEquals(59, result.length());
+        assertEquals("<html>\n    <p>This page is rendered by Quarkus</p>\n</html>\n", response.body().asString());
     }
 }
