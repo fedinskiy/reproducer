@@ -5,6 +5,8 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import javax.ws.rs.core.MediaType;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -12,18 +14,20 @@ import static org.hamcrest.CoreMatchers.is;
 public class GreetingResourceTest {
 
     @Test
-    public void failOnClassic() {
+    public void fetchDefault() {
         Response response = given().get("/validate/boom");
+        System.out.println(response.headers());
         System.out.println(response.asPrettyString());
         Assertions.assertEquals(400, response.statusCode());
-        Assertions.assertEquals("numeric value out of bounds", response.body().jsonPath().getString("violations[0].message"));
+        response.then().contentType(MediaType.TEXT_PLAIN);
     }
 
     @Test
-    public void failOnReactive() {
-        Response response = given().get("/validate/boom");
+    public void fetchText() {
+        Response response = given().get("/validate/text/boom");
+        System.out.println(response.headers());
         System.out.println(response.asPrettyString());
         Assertions.assertEquals(400, response.statusCode());
-        Assertions.assertEquals("numeric value out of bounds", response.body().jsonPath().getString("parameterViolations[0].message"));
+        response.then().contentType(MediaType.TEXT_PLAIN);
     }
 }

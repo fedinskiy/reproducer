@@ -1,7 +1,5 @@
 package com.redhat.qe;
 
-import io.smallrye.mutiny.Uni;
-
 import javax.validation.constraints.Digits;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,9 +12,16 @@ public class Resource {
 
     @GET
     @Path("/validate/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Uni<String> validateNoProduces(
+    public String validate(
             @Digits(integer = 5, fraction = 0, message = "numeric value out of bounds") @PathParam("id") String id) {
-        return Uni.createFrom().item(id);
+        return id;
+    }
+
+    @GET
+    @Path("/validate/text/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String validateText(
+            @Digits(integer = 5, fraction = 0, message = "numeric value out of bounds") @PathParam("id") String id) {
+        return id;
     }
 }

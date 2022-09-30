@@ -94,10 +94,6 @@
          <groupId>io.quarkus</groupId>
          <artifactId>quarkus-resteasy-reactive</artifactId>
        </dependency>
-       <dependency>
-         <groupId>io.quarkus</groupId>
-         <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
-       </dependency>
      </dependencies>
    </profile>
     <profile>
@@ -106,10 +102,6 @@
         <dependency>
           <groupId>io.quarkus</groupId>
           <artifactId>quarkus-resteasy</artifactId>
-        </dependency>
-        <dependency>
-          <groupId>io.quarkus</groupId>
-          <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
       </dependencies>
     </profile>
