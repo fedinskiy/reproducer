@@ -1,6 +1,9 @@
 package com.redhat.qe;
 
+import io.smallrye.mutiny.Uni;
+
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -8,20 +11,27 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("")
+@Produces(MediaType.APPLICATION_JSON)
 public class Resource {
 
     @GET
-    @Path("/validate/{id}")
-    public String validate(
-            @Digits(integer = 5, fraction = 0, message = "numeric value out of bounds") @PathParam("id") String id) {
-        return id;
+    @Path("/validate/reactive/{content}")
+    @Size(min = 3, max = 3, message = "response must have 3 characters")
+    public Uni<String> validateReactiveEcho(@PathParam("content") String content) {
+        return Uni.createFrom().item(content);
     }
 
     @GET
-    @Path("/validate/text/{id}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String validateText(
-            @Digits(integer = 5, fraction = 0, message = "numeric value out of bounds") @PathParam("id") String id) {
-        return id;
+    @Path("/validate/classic/{content}")
+    @Size(min = 3, max = 3, message = "response must have 3 characters")
+    public String validateEcho(@PathParam("content") String content) {
+        return content;
+    }
+
+    @GET
+    @Path("/validate/input/{content}")
+    public Uni<String> reactiveEcho(
+            @Size(min = 3, max = 3, message = "request must have 3 characters") @PathParam("content") String content) {
+        return Uni.createFrom().item(content);
     }
 }

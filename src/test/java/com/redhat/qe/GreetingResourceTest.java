@@ -8,26 +8,37 @@ import org.junit.jupiter.api.Test;
 import javax.ws.rs.core.MediaType;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 public class GreetingResourceTest {
 
     @Test
-    public void fetchDefault() {
-        Response response = given().get("/validate/boom");
-        System.out.println(response.headers());
-        System.out.println(response.asPrettyString());
+    public void reactive() {
+        Response response = given().get("/validate/reactive/mouse");
+        response.then().body(containsString("response must have 3 characters"));
         Assertions.assertEquals(400, response.statusCode());
-        response.then().contentType(MediaType.TEXT_PLAIN);
     }
 
     @Test
-    public void fetchText() {
-        Response response = given().get("/validate/text/boom");
-        System.out.println(response.headers());
-        System.out.println(response.asPrettyString());
+    public void classic() {
+        Response response = given().get("/validate/classic/mouse");
+        response.then().body(containsString("response must have 3 characters"));
         Assertions.assertEquals(400, response.statusCode());
-        response.then().contentType(MediaType.TEXT_PLAIN);
+    }
+
+    @Test
+    public void input() {
+        Response response = given().get("/validate/input/mouse");
+        response.then().body(containsString("request must have 3 characters"));
+        Assertions.assertEquals(400, response.statusCode());
+    }
+
+    @Test
+    public void classicSuccess() {
+        Response response = given().get("/validate/classic/cat");
+        Assertions.assertEquals("cat", response.body().asString());
+        Assertions.assertEquals(200, response.statusCode());
     }
 }
