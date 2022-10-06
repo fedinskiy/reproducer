@@ -25,7 +25,9 @@ public class GreetingResourceTest {
     public void classic() {
         Response response = given().get("/validate/classic/mouse");
         response.then().body(containsString("response must have 3 characters"));
-        Assertions.assertEquals(400, response.statusCode());
+        Assertions.assertEquals(500, response.statusCode());
+        System.out.println(response.headers());
+        System.out.println(response.body().asPrettyString());
     }
 
     @Test
@@ -33,6 +35,7 @@ public class GreetingResourceTest {
         Response response = given().get("/validate/input/mouse");
         response.then().body(containsString("request must have 3 characters"));
         Assertions.assertEquals(400, response.statusCode());
+        System.out.println(response.body().asPrettyString());
     }
 
     @Test
