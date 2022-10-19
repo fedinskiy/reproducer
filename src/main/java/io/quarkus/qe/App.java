@@ -1,8 +1,5 @@
 package io.quarkus.qe;
 
-import org.testcontainers.containers.localstack.LocalStackContainer;
-import org.testcontainers.utility.DockerImageName;
-
 /**
  * Hello world!
  */

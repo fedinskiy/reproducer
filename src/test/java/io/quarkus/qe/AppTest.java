@@ -1,8 +1,8 @@
 package io.quarkus.qe;
 
 import junit.framework.TestCase;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.NginxContainer;
-import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.utility.DockerImageName;
 
 /**
@@ -14,8 +14,13 @@ public class AppTest extends TestCase {
     }
 
     public void testName() {
-        DockerImageName imageName = DockerImageName.parse("localstack/localstack").withTag("0.12.17");
-        LocalStackContainer container = new LocalStackContainer(imageName).withServices(LocalStackContainer.Service.DYNAMODB);
+        GenericContainer container = new GenericContainer<>("postgres:9.6.12");
+        container.start();
+        container.close();
+    }
+
+    public void testFullName() {
+        GenericContainer container = new GenericContainer<>("docker.io/postgres:9.6.10");
         container.start();
         container.close();
     }
