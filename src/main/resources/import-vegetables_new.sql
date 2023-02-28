@@ -1,0 +1,8 @@
+ALTER SEQUENCE Vegetable_SEQ INCREMENT 1;
+INSERT INTO vegetable (id, name) VALUES (nextval('Vegetable_SEQ'), 'Potato');
+INSERT INTO vegetable (id, name) VALUES (nextval('Vegetable_SEQ'), 'Carrot');
+INSERT INTO vegetable (id, name) VALUES (nextval('Vegetable_SEQ'), 'Parsley');
+INSERT INTO vegetable (id, name) VALUES (nextval('Vegetable_SEQ'), 'Kohlrabi');
+INSERT INTO vegetable (id, name) VALUES (nextval('Vegetable_SEQ'), 'Leek');
+INSERT INTO vegetable (id, name) VALUES (nextval('Vegetable_SEQ'), 'Onion');
+INSERT INTO vegetable (id, name) VALUES (nextval('Vegetable_SEQ'), 'Garlic');
