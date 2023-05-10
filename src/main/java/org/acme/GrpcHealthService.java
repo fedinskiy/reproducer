@@ -1,23 +1,20 @@
 package org.acme;
 
-import io.quarkus.example.HealthCheckRequest;
-import io.quarkus.example.HealthCheckResponse;
-import io.quarkus.example.HealthService;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 
 @GrpcService
 // todo this should return statuses, but it isn't failing the deployment
-public class GrpcHealthService implements HealthService {
+public class GrpcHealthService implements Health {
 
     @Override
-    public Uni<HealthCheckResponse> check(HealthCheckRequest request) {
+    public Uni<HealthOuterClass.HealthCheckResponse> check(HealthOuterClass.HealthCheckRequest request) {
         return Uni.createFrom().failure(new RuntimeException("Error!"));
     }
 
     @Override
-    public Multi<HealthCheckResponse> watch(HealthCheckRequest request) {
+    public Multi<HealthOuterClass.HealthCheckResponse> watch(HealthOuterClass.HealthCheckRequest request) {
         return Multi.createFrom().failure(new RuntimeException("Error!"));
     }
 }
