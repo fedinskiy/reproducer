@@ -1,10 +1,11 @@
 package io.quarkus.ts.hibernate.reactive.database;
 
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import io.quarkus.hibernate.reactive.panache.PanacheRepositoryBase;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
+
+import java.util.List;
 
 @ApplicationScoped
 public class AuthorRepository implements PanacheRepositoryBase<Author, Integer> {
@@ -15,7 +16,7 @@ public class AuthorRepository implements PanacheRepositoryBase<Author, Integer> 
         return persistAndFlush(author);
     }
 
-    public Multi<Author> findByName(String name) {
-        return find("name", name).stream();
+    public Uni<List<Author>> findByName(String name) {
+        return find("name", name).list();
     }
 }
