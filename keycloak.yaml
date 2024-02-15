@@ -1,0 +1,76 @@
+---
+apiVersion: "v1"
+kind: "List"
+items:
+- apiVersion: "v1"
+  kind: "Service"
+  metadata:
+    name: "rhsso"
+  spec:
+    ports:
+    - name: "http"
+      port: 8080
+      targetPort: 8080
+    selector:
+      deployment: "rhsso"
+    type: "ClusterIP"
+- apiVersion: "apps/v1"
+  kind: "Deployment"
+  metadata:
+    name: "rhsso"
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        deployment: "rhsso"
+    template:
+      metadata:
+        labels:
+          deployment: "rhsso"
+      spec:
+        containers:
+        - args:
+          - "start-dev"
+          - "--import-realm"
+          env:
+          - name: "KEYCLOAK_ADMIN_PASSWORD"
+            value: "admin"
+          - name: "KEYCLOAK_PASSWORD"
+            value: "admin"
+          - name: "KEYCLOAK_ADMIN"
+            value: "admin"
+          - name: "KEYCLOAK_IMPORT"
+            value: "/resources/keycloak-realm.json"
+          - name: "KEYCLOAK_USER"
+            value: "admin"
+          - name: "KEYCLOAK_REALM_IMPORT"
+            value: "/opt/keycloak/data/import/keycloak-realm.json"
+          - name: "JAVA_OPTS"
+            value: "-Dcom.redhat.fips=false"
+          - name: "X509_CA_BUNDLE"
+            value: "/var/run/secrets/kubernetes.io/serviceaccount/*.crt"
+          image: "registry.redhat.io/rhbk/keycloak-rhel9:22-8"
+          imagePullPolicy: "IfNotPresent"
+          name: "rhsso"
+          ports:
+          - containerPort: 8080
+            name: "http"
+            protocol: "TCP"
+          volumeMounts:
+          - mountPath: "/opt/keycloak/data/import/keycloak-realm.json"
+            name: "keycloak-realm-json"
+            readOnly: true
+            subPathExpr: "keycloak-realm.json"
+          - mountPath: "/resources"
+            name: "keycloak-realm-json"
+            readOnly: true
+        volumes:
+        - configMap:
+            name: "keycloak-realm"
+          name: "keycloak-realm-json"
+#        - configMap:
+#            name: "opt-keycloak-data-import-keycloak-realm-json"
+#          name: "opt-keycloak-data-import-keycloak-realm-json"
+#        - configMap:
+#            name: "resources-keycloak-realm-json"
+#          name: "resources-keycloak-realm-json"
