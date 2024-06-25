@@ -10,12 +10,19 @@ import static org.hamcrest.CoreMatchers.is;
 public class GreetingResourceTest {
 
     @Test
-    public void testHelloEndpoint() {
+    public void fastTest() throws InterruptedException {
         given()
-          .when().get("/hello")
+          .when().post("/slow-topic/sendMessages/fast")
           .then()
-             .statusCode(200)
-             .body(is("Hello from RESTEasy Reactive"));
+                .statusCode(204);
     }
 
+    @Test
+    public void slowTest() throws InterruptedException {
+        Thread.sleep(10_000);
+        given()
+                .when().post("/slow-topic/sendMessages/wait")
+                .then()
+                .statusCode(204);
+    }
 }
