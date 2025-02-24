@@ -1,9 +1,13 @@
 package io.quarkus.qe;
 
+import io.smallrye.mutiny.Uni;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -26,8 +30,24 @@ public class GreetingResource {
     @GET
     @Path("/book")
     @Produces(MediaType.APPLICATION_JSON)
-    public Book book() {
-        return new Book("Catch-22", "Joseph Heller");
+    public Uni<Book> book() {
+        return Uni.createFrom().item(new Book("Catch-22", "Joseph Heller"));
+    }
+
+    @GET
+    @Path("/books")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Uni<Book> getBook(@QueryParam("title") String title, @QueryParam("author") String author) {
+        System.out.println("Creating book " + title + " from " + author);
+        return Uni.createFrom().item(new Book(title, author));
+    }
+
+    @POST
+    @Path("/sequel")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Uni<String> sequel(Book first) {
+        return Uni.createFrom().item(first.getTitle() + " II");
     }
 
     @GET
