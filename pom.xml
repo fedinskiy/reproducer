@@ -30,7 +30,7 @@
   <dependencies>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-rest-jackson</artifactId>
+      <artifactId>quarkus-rest-qute</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>

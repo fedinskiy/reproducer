@@ -1,31 +1,7 @@
 package io.quarkus.qe;
 
-public class Book {
+import io.quarkus.qute.TemplateData;
 
-    private String title;
-    private String author;
-
-    public Book() {
-    }
-
-    public Book(String title, String author) {
-        this.title = title;
-        this.author = author;
-    }
-
-    public Book(String title) {
-        this(title, null);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
+@TemplateData
+public record Book(String title, String author, String... characters) {
 }
