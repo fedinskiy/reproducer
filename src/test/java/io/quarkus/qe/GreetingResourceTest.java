@@ -18,4 +18,55 @@ public class GreetingResourceTest {
              .body(is("Hello from RESTEasy Reactive"));
     }
 
+    @Test
+    public void webSocket() {
+        given()
+                .when().body("ws://localhost:8081").post("/socket/start")
+                .then()
+                .statusCode(200);
+        given()
+                .when().body("hello").post("/socket/send")
+                .then()
+                .statusCode(204);
+        given()
+                .when().get("/socket/answer")
+                .then()
+                .statusCode(200)
+                .body(is("And hello to you too!"));
+    }
+
+    @Test
+    public void emptyPrefix() {
+        given()
+                .when().body("localhost:8081").post("/socket/start")
+                .then()
+                .statusCode(200);
+        given()
+                .when().body("hello").post("/socket/send")
+                .then()
+                .statusCode(204);
+        given()
+                .when().get("/socket/answer")
+                .then()
+                .statusCode(200)
+                .body(is("And hello to you too!"));
+    }
+
+    @Test
+    public void http() {
+        given()
+                .when().body("http://localhost:8081").post("/socket/start")
+                .then()
+                .statusCode(200);
+        given()
+                .when().body("hello").post("/socket/send")
+                .then()
+                .statusCode(204);
+        given()
+                .when().get("/socket/answer")
+                .then()
+                .statusCode(200)
+                .body(is("And hello to you too!"));
+    }
+
 }
