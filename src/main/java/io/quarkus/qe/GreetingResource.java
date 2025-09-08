@@ -4,6 +4,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/")
 public class GreetingResource {
@@ -16,8 +17,7 @@ public class GreetingResource {
 
     @GET
     @Path("/hello")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from RESTEasy Reactive";
+    public Response hello() {
+        return Response.ok("hello").header("Transfer-Encoding", "chunked").build();
     }
 }
