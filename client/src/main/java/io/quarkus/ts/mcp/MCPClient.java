@@ -1,4 +1,4 @@
-package io.quarkus.ts.mcp.app;
+package io.quarkus.ts.mcp;
 
 import java.util.List;
 import java.util.stream.Collectors;

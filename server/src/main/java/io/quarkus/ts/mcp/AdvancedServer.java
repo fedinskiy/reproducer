@@ -28,4 +28,19 @@ public class AdvancedServer {
     Uni<String> unsampled(String question) {
         return Uni.createFrom().item("Answer to %s is 42".formatted(question));
     }
+
+    @Tool(description = "third tool")
+    String three() {
+        return "three";
+    }
+
+    @Tool(description = "fourth tool")
+    String four() {
+        return "four";
+    }
+
+    @Tool(description = "fifth tool")
+    String five() {
+        return "five";
+    }
 }
