@@ -1,5 +1,10 @@
 package io.quarkus.ts.mcp;
 
+import java.util.List;
+import java.util.stream.Stream;
+
+import jakarta.enterprise.context.ApplicationScoped;
+
 import io.quarkiverse.mcp.server.CompleteArg;
 import io.quarkiverse.mcp.server.CompletePrompt;
 import io.quarkiverse.mcp.server.Elicitation;
@@ -14,10 +19,6 @@ import io.quarkiverse.mcp.server.TextContent;
 import io.quarkiverse.mcp.server.Tool;
 import io.quarkus.runtime.Startup;
 import io.smallrye.mutiny.Uni;
-import jakarta.enterprise.context.ApplicationScoped;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 @ApplicationScoped
 @Startup
